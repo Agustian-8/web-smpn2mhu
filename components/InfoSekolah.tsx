@@ -1,4 +1,10 @@
-import { MapPin, ShieldCheck, Building2, Globe2, FileText, CheckCircle2 } from "lucide-react";
+import {
+  MapPin,
+  ShieldCheck,
+  Building2,
+  Globe2,
+  FileText,
+} from "lucide-react";
 
 export default function InfoSekolah() {
   const info = [
@@ -30,74 +36,85 @@ export default function InfoSekolah() {
 
   return (
     <section className="py-16 md:py-24 bg-[#F9F7F7] text-[#112D4E] relative overflow-hidden border-y border-[#DBE2EF]">
-      {/* Decorative ambient background element */}
-      <div 
-        className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-[#DBE2EF]/40 rounded-full blur-3xl pointer-events-none" 
-        aria-hidden="true" 
+      {/* Subtle Ambient */}
+      <div
+        className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-[#DBE2EF]/30 rounded-full blur-3xl pointer-events-none"
+        aria-hidden="true"
       />
 
       <div className="max-w-6xl mx-auto px-5 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-          
-          {/* Section Header (Kiri) */}
-          <div className="lg:col-span-4 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#3F72AF]/10 border border-[#3F72AF]/20 text-[#3F72AF] text-xs font-semibold">
-              <FileText className="w-3.5 h-3.5" />
-              <span>Identitas Sekolah</span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          {/* ============ SECTION HEADER (KIRI) ============ */}
+          <div className="lg:col-span-4 space-y-5">
+            {/* Accent line + label */}
+            <div className="flex items-center gap-2.5">
+              <span className="w-8 h-[3px] bg-[#3F72AF] rounded-full" />
+              <span className="text-xs font-bold text-[#3F72AF] uppercase tracking-[0.15em]">
+                Identitas Sekolah
+              </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#112D4E] tracking-tight leading-snug">
-              Data & Informasi Resmi Sekolah
+            {/* Judul — 1 warna, natural */}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#112D4E] tracking-tight leading-tight">
+              Profil Singkat Sekolah Kami
             </h2>
 
-            <p className="text-sm text-[#112D4E]/80 leading-relaxed">
-              Seluruh data yang tertera diverifikasi secara berkala sesuai dengan basis data resmi Data Pokok Pendidikan (Dapodik) Kemendikbudristek.
+            <p className="text-sm text-[#112D4E]/70 leading-relaxed max-w-sm">
+              Data terverifikasi berkala sesuai basis resmi Data Pokok
+              Pendidikan (Dapodik) Kemendikbudristek.
             </p>
 
-            {/* Status Verifikasi Badge */}
-            <div className="pt-2">
-              <div className="inline-flex items-center gap-2 text-xs font-medium text-[#112D4E]/70 bg-white px-3.5 py-2 rounded-xl border border-[#DBE2EF] shadow-sm">
-                <CheckCircle2 className="w-4 h-4 text-[#3F72AF]" />
-                <span>Terverifikasi Aktif TA 2026/2027</span>
+            {/* Divider + info tahun */}
+            <div className="pt-4 mt-4 border-t border-[#DBE2EF]">
+              <div className="flex items-center gap-2 text-xs font-medium text-[#112D4E]/50">
+                <FileText className="w-3.5 h-3.5 text-[#3F72AF]" />
+                <span>Tahun Ajaran 2026/2027</span>
               </div>
             </div>
           </div>
 
-          {/* Grid Informasi (Kanan) */}
+          {/* ============ GRID INFO (KANAN) ============ */}
           <div className="lg:col-span-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               {info.map((item, i) => {
                 const Icon = item.icon;
+                const nomor = String(i + 1).padStart(2, "0");
+
                 return (
                   <div
                     key={i}
-                    className="bg-white p-6 rounded-2xl border border-[#DBE2EF] shadow-sm hover:shadow-md hover:border-[#3F72AF]/40 transition-all duration-300 group flex flex-col justify-between"
+                    className="bg-white p-6 sm:p-7 rounded-2xl border border-[#DBE2EF] flex flex-col"
                   >
-                    <div>
-                      {/* Icon & Label */}
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-bold text-[#3F72AF] uppercase tracking-wider">
-                          {item.label}
-                        </span>
-                        <div className="w-9 h-9 rounded-xl bg-[#3F72AF]/10 border border-[#3F72AF]/20 flex items-center justify-center text-[#3F72AF] group-hover:bg-[#3F72AF] group-hover:text-white transition-colors duration-300">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                      </div>
-
-                      {/* Content */}
-                      <h3 className="text-xl font-bold text-[#112D4E] mb-1.5 tracking-tight">
-                        {item.nilai}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#112D4E]/70 leading-relaxed">
-                        {item.sub}
-                      </p>
+                    {/* Icon */}
+                    <div className="w-10 h-10 rounded-xl bg-[#3F72AF]/10 flex items-center justify-center text-[#3F72AF] mb-5">
+                      <Icon className="w-5 h-5" strokeWidth={2} />
                     </div>
+
+                    {/* Label dengan nomor inline */}
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[11px] font-bold text-[#112D4E]/25 tabular-nums">
+                        {nomor}
+                      </span>
+                      <span className="w-3 h-px bg-[#112D4E]/20" />
+                      <span className="text-[11px] font-bold text-[#3F72AF] uppercase tracking-[0.12em]">
+                        {item.label}
+                      </span>
+                    </div>
+
+                    {/* Value */}
+                    <h3 className="text-lg sm:text-xl font-bold text-[#112D4E] leading-tight tracking-tight mb-1.5">
+                      {item.nilai}
+                    </h3>
+
+                    {/* Sub */}
+                    <p className="text-xs sm:text-sm text-[#112D4E]/65 leading-relaxed">
+                      {item.sub}
+                    </p>
                   </div>
                 );
               })}
             </div>
           </div>
-
         </div>
       </div>
     </section>

@@ -1,6 +1,8 @@
 const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbx0MfNY6YlGxjDiYdtp9LuzNKJjBfCDTRffEY3MZHTblMZ9ieQobikAgY_rVv2cd94/exec";
 
+export const ADMIN_PASSWORD_FOR_BERITA = "smpn2mhu2026";
+
 // ============================================
 // TIPE DATA: PENDAFTAR
 // ============================================
@@ -47,17 +49,11 @@ export async function getAllPendaftar(
       return { success: false, error: json.message || "Gagal mengambil data" };
     } catch {
       console.error("Response bukan JSON:", text.substring(0, 300));
-      return {
-        success: false,
-        error: "Response dari server tidak valid",
-      };
+      return { success: false, error: "Response dari server tidak valid" };
     }
   } catch (err) {
     console.error("Fetch error:", err);
-    return {
-      success: false,
-      error: "Kesalahan jaringan",
-    };
+    return { success: false, error: "Kesalahan jaringan" };
   }
 }
 
@@ -104,16 +100,12 @@ export type Berita = {
   ringkasan: string;
   konten: string;
   gambar: string;
+  kategori?: string; // ← TAMBAHAN: field kategori
   _rowNumber: number;
 };
 
 // ============================================
-// KONFIGURASI: Password admin
-// ============================================
-export const ADMIN_PASSWORD_FOR_BERITA = "smpn2mhu2026"; // GANTI dengan password Anda
-
-// ============================================
-// FUNGSI: BERITA (untuk admin, tanpa cache)
+// FUNGSI ADMIN: BERITA (tanpa cache)
 // ============================================
 export async function getAllBeritaAdmin(): Promise<{
   success: boolean;
@@ -141,17 +133,11 @@ export async function getAllBeritaAdmin(): Promise<{
       return { success: false, error: json.message || "Gagal mengambil berita" };
     } catch {
       console.error("Response bukan JSON:", text.substring(0, 300));
-      return {
-        success: false,
-        error: "Response dari server tidak valid",
-      };
+      return { success: false, error: "Response dari server tidak valid" };
     }
   } catch (err) {
     console.error("Fetch error:", err);
-    return {
-      success: false,
-      error: "Kesalahan jaringan",
-    };
+    return { success: false, error: "Kesalahan jaringan" };
   }
 }
 
@@ -163,6 +149,7 @@ export async function addBerita(
     ringkasan: string;
     konten: string;
     gambar: string;
+    kategori?: string;
   }
 ): Promise<{ success: boolean; error?: string }> {
   try {
@@ -174,6 +161,7 @@ export async function addBerita(
       ringkasan: data.ringkasan,
       konten: data.konten,
       gambar: data.gambar,
+      kategori: data.kategori || "",
     });
 
     const res = await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, {
@@ -207,6 +195,7 @@ export async function updateBerita(
     ringkasan: string;
     konten: string;
     gambar: string;
+    kategori?: string;
   }
 ): Promise<{ success: boolean; error?: string }> {
   try {
@@ -219,6 +208,7 @@ export async function updateBerita(
       ringkasan: data.ringkasan,
       konten: data.konten,
       gambar: data.gambar,
+      kategori: data.kategori || "",
     });
 
     const res = await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, {
