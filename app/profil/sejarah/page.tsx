@@ -8,27 +8,51 @@ import {
   Award,
   Users,
   ArrowUpRight,
-  Quote,
 } from "lucide-react";
 
 export const metadata = {
   title: "Sejarah Sekolah",
-  description: "Sejarah dan perjalanan SMP Negeri 2 Matan Hilir Utara",
+  description:
+    "Sejarah dan perjalanan berdirinya SMP Negeri 2 Matan Hilir Utara",
 };
 
 export default function HalamanSejarah() {
   const milestones = [
     {
       label: "Berdiri",
-      value: "Sekolah mulai beroperasi untuk melayani pendidikan menengah pertama di Kecamatan Matan Hilir Utara",
+      value:
+        "Sekolah mulai beroperasi untuk melayani pendidikan menengah pertama di Kecamatan Matan Hilir Utara.",
     },
     {
       label: "Akreditasi B",
-      value: "Meraih akreditasi B dari Badan Akreditasi Nasional Sekolah/Madrasah",
+      value:
+        "Meraih akreditasi B dari Badan Akreditasi Nasional Sekolah/Madrasah.",
     },
     {
       label: "Hari Ini",
-      value: "Terus berkembang dengan tenaga pendidik profesional dan fasilitas pembelajaran yang terus ditingkatkan",
+      value:
+        "Terus berkembang dengan tenaga pendidik profesional dan fasilitas pembelajaran yang terus ditingkatkan.",
+    },
+  ];
+
+  const quickInfo = [
+    {
+      icon: MapPin,
+      label: "Lokasi",
+      value: "Kec. Matan Hilir Utara",
+      sub: "Kabupaten Ketapang",
+    },
+    {
+      icon: Award,
+      label: "Akreditasi",
+      value: "Peringkat B",
+      sub: "BAN Sekolah/Madrasah",
+    },
+    {
+      icon: Users,
+      label: "Status",
+      value: "Negeri",
+      sub: "Jenjang Dikdas",
     },
   ];
 
@@ -36,9 +60,9 @@ export default function HalamanSejarah() {
     <main className="min-h-screen bg-[#F9F7F7] text-[#112D4E]">
       <Header />
 
-      {/* ============ HERO SECTION ============ */}
+      {/* ================= HERO SECTION ================= */}
       <section className="relative bg-[#112D4E] text-[#F9F7F7] py-16 md:py-20 overflow-hidden">
-        {/* Ambient */}
+        {/* Ambient blur — dekorasi tunggal */}
         <div
           className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#3F72AF]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"
           aria-hidden="true"
@@ -74,10 +98,10 @@ export default function HalamanSejarah() {
         </div>
       </section>
 
-      {/* ============ MAIN CONTENT ============ */}
+      {/* ================= MAIN CONTENT ================= */}
       <section className="py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-5 space-y-10 md:space-y-12">
-          {/* ---------- BABAK 1: BERDIRI ---------- */}
+          {/* ---------- BABAK 1: AWAL BERDIRI ---------- */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
               <span className="w-1 h-6 bg-[#3F72AF] rounded-full" />
@@ -99,11 +123,6 @@ export default function HalamanSejarah() {
 
           {/* ---------- PULL QUOTE ---------- */}
           <div className="relative pl-6 md:pl-8 border-l-4 border-[#3F72AF] py-2">
-            <Quote
-              className="absolute -top-2 -left-2 w-8 h-8 text-[#DBE2EF]"
-              strokeWidth={1.5}
-              aria-hidden="true"
-            />
             <p className="text-base md:text-lg font-medium text-[#112D4E] leading-relaxed italic">
               Berkomitmen memberikan pendidikan berkualitas bagi putra-putri
               daerah, dengan dukungan tenaga pendidik profesional dan
@@ -164,45 +183,30 @@ export default function HalamanSejarah() {
           </div>
 
           {/* ---------- QUICK INFO GRID ---------- */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-            <div className="bg-white border border-[#DBE2EF] rounded-2xl p-5 flex flex-col">
-              <MapPin className="w-5 h-5 text-[#3F72AF] mb-3" />
-              <p className="text-[11px] font-bold text-[#3F72AF] uppercase tracking-[0.12em] mb-1.5">
-                Lokasi
-              </p>
-              <p className="text-sm font-bold text-[#112D4E] leading-snug">
-                Kec. Matan Hilir Utara
-              </p>
-              <p className="text-xs text-[#112D4E]/60 mt-1">
-                Kabupaten Ketapang
-              </p>
-            </div>
-
-            <div className="bg-white border border-[#DBE2EF] rounded-2xl p-5 flex flex-col">
-              <Award className="w-5 h-5 text-[#3F72AF] mb-3" />
-              <p className="text-[11px] font-bold text-[#3F72AF] uppercase tracking-[0.12em] mb-1.5">
-                Akreditasi
-              </p>
-              <p className="text-sm font-bold text-[#112D4E] leading-snug">
-                Peringkat B
-              </p>
-              <p className="text-xs text-[#112D4E]/60 mt-1">
-                BAN Sekolah/Madrasah
-              </p>
-            </div>
-
-            <div className="bg-white border border-[#DBE2EF] rounded-2xl p-5 flex flex-col">
-              <Users className="w-5 h-5 text-[#3F72AF] mb-3" />
-              <p className="text-[11px] font-bold text-[#3F72AF] uppercase tracking-[0.12em] mb-1.5">
-                Status
-              </p>
-              <p className="text-sm font-bold text-[#112D4E] leading-snug">
-                Negeri
-              </p>
-              <p className="text-xs text-[#112D4E]/60 mt-1">
-                Jenjang Dikdas
-              </p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            {quickInfo.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={i}
+                  className="bg-white border border-[#DBE2EF] rounded-2xl p-5 flex flex-col"
+                >
+                  <Icon
+                    className="w-5 h-5 text-[#3F72AF] mb-3"
+                    strokeWidth={2}
+                  />
+                  <p className="text-[11px] font-bold text-[#3F72AF] uppercase tracking-[0.12em] mb-1.5">
+                    {item.label}
+                  </p>
+                  <p className="text-sm font-bold text-[#112D4E] leading-snug">
+                    {item.value}
+                  </p>
+                  <p className="text-xs text-[#112D4E]/60 mt-1">
+                    {item.sub}
+                  </p>
+                </div>
+              );
+            })}
           </div>
 
           {/* ---------- CTA SECTION ---------- */}
