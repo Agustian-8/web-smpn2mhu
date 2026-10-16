@@ -21,9 +21,6 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-// ============================================
-// TYPES
-// ============================================
 type Berita = {
   id: string | number;
   judul: string;
@@ -38,23 +35,18 @@ type Props = {
   errorMessage?: string;
 };
 
-// ============================================
-// COMPONENT
-// ============================================
 export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState<"terbaru" | "terlama" | "az">("terbaru");
   const [activeKategori, setActiveKategori] = useState<string>("semua");
 
-  // Kategori unik dari data
   const kategoriList = useMemo(() => {
     const set = new Set<string>();
     daftarBerita.forEach((b) => b.kategori && set.add(b.kategori));
     return ["semua", ...Array.from(set)];
   }, [daftarBerita]);
 
-  // Filter + Sort
   const filteredBerita = useMemo(() => {
     let result = [...daftarBerita];
 
@@ -82,16 +74,12 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
     return result;
   }, [daftarBerita, activeKategori, searchQuery, sortBy]);
 
-  const featuredBerita = filteredBerita[0];
-  const otherBerita = filteredBerita.slice(1);
-
   return (
     <main className="min-h-screen bg-[#F9F7F7] text-[#112D4E]">
       <Header />
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative bg-[#112D4E] text-[#F9F7F7] py-16 md:py-24 overflow-hidden">
-        {/* Ambient blur */}
         <div
           className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#3F72AF]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"
           aria-hidden="true"
@@ -102,7 +90,6 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
         />
 
         <div className="max-w-6xl mx-auto px-5 relative z-10">
-          {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs text-[#DBE2EF]/70 mb-6">
             <Link href="/" className="hover:text-[#F9F7F7] transition-colors">
               Beranda
@@ -111,7 +98,6 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
             <span className="text-[#F9F7F7] font-semibold">Berita</span>
           </nav>
 
-          {/* Badge Pill */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#3F72AF]/20 border border-[#3F72AF]/40 text-[#DBE2EF] text-xs font-semibold mb-4">
             <Newspaper className="w-3.5 h-3.5 text-[#3F72AF]" />
             <span>Informasi Terkini</span>
@@ -125,7 +111,6 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
             2 Matan Hilir Utara.
           </p>
 
-          {/* Stats — inline, tanpa icon dekoratif */}
           <div className="flex flex-wrap gap-6 md:gap-10">
             <div>
               <p className="text-[10px] uppercase tracking-[0.15em] text-[#DBE2EF]/60 font-bold mb-1.5">
@@ -166,11 +151,10 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
       {/* ================= MAIN CONTENT ================= */}
       <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-5">
-          {/* Toolbar — hanya muncul kalau tidak ada error & tidak kosong total */}
+          {/* Toolbar */}
           {!errorMessage && daftarBerita.length > 0 && (
             <div className="bg-white border border-[#DBE2EF] rounded-2xl p-4 md:p-5 mb-6 md:mb-8">
               <div className="flex flex-col lg:flex-row gap-3 lg:items-center">
-                {/* Search */}
                 <div className="relative flex-1">
                   <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3F72AF]/60" />
                   <input
@@ -192,7 +176,6 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  {/* Sort Dropdown */}
                   <div className="relative">
                     <SlidersHorizontal className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#3F72AF] pointer-events-none" />
                     <select
@@ -209,7 +192,6 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
                     <ChevronRight className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#3F72AF] rotate-90 pointer-events-none" />
                   </div>
 
-                  {/* View Toggle */}
                   <div className="flex items-center bg-[#F9F7F7] border border-[#DBE2EF] rounded-xl p-1">
                     <button
                       onClick={() => setViewMode("grid")}
@@ -237,7 +219,6 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
                 </div>
               </div>
 
-              {/* Filter Kategori */}
               {kategoriList.length > 1 && (
                 <div className="flex items-center gap-2 mt-4 pt-4 border-t border-[#DBE2EF] overflow-x-auto pb-1 -mb-1">
                   {kategoriList.map((kat) => (
@@ -315,7 +296,6 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
                   : "Berita dan pengumuman akan tampil di sini. Silakan kembali lagi nanti."}
               </p>
 
-              {/* CTA: Reset Search / Coba Lagi */}
               {searchQuery ? (
                 <button
                   onClick={() => setSearchQuery("")}
@@ -336,77 +316,10 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
             </div>
           ) : (
             <>
-              {/* ============ FEATURED BERITA ============ */}
-              {featuredBerita && viewMode === "grid" && (
-                <Link
-                  href={`/berita/${featuredBerita.id}`}
-                  className="group block bg-white border border-[#DBE2EF] rounded-3xl overflow-hidden hover:border-[#3F72AF] transition-colors duration-300 mb-8"
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-2">
-                    {/* Thumbnail */}
-                    <div className="relative aspect-[16/10] md:aspect-auto md:min-h-[340px] bg-[#DBE2EF]/50 overflow-hidden">
-                      {featuredBerita.gambar ? (
-                        <Image
-                          src={featuredBerita.gambar}
-                          alt={featuredBerita.judul}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-[#3F72AF]/50 bg-[#DBE2EF]/30">
-                          <ImageIcon className="w-14 h-14" />
-                        </div>
-                      )}
-
-                      {/* Badge "Berita Utama" */}
-                      <div className="absolute top-4 left-4 inline-flex items-center bg-[#112D4E]/90 backdrop-blur-sm text-[#F9F7F7] text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded">
-                        Berita Utama
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-6 md:p-8 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-3 mb-4 flex-wrap">
-                          <span className="inline-flex items-center gap-1.5 text-xs text-[#3F72AF] font-bold">
-                            <Calendar className="w-3 h-3" />
-                            {new Date(
-                              featuredBerita.tanggal
-                            ).toLocaleDateString("id-ID", {
-                              day: "numeric",
-                              month: "long",
-                              year: "numeric",
-                            })}
-                          </span>
-                          {featuredBerita.kategori && (
-                            <span className="text-xs text-[#112D4E]/50">
-                              · {featuredBerita.kategori}
-                            </span>
-                          )}
-                        </div>
-
-                        <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-[#112D4E] leading-tight mb-3 group-hover:text-[#3F72AF] transition-colors">
-                          {featuredBerita.judul}
-                        </h2>
-                        <p className="text-sm text-[#112D4E]/70 line-clamp-3 leading-relaxed">
-                          {featuredBerita.ringkasan}
-                        </p>
-                      </div>
-
-                      <div className="inline-flex items-center gap-2 text-sm font-bold text-[#3F72AF] group-hover:text-[#112D4E] transition-colors mt-6">
-                        <span>Baca Selengkapnya</span>
-                        <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              )}
-
-              {/* ============ GRID / LIST VIEW ============ */}
+              {/* ============ GRID VIEW — 6 BERITA SEMUA ============ */}
               {viewMode === "grid" ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                  {otherBerita.map((berita) => (
+                  {filteredBerita.map((berita) => (
                     <Link
                       key={berita.id}
                       href={`/berita/${berita.id}`}
@@ -467,8 +380,9 @@ export default function BeritaClient({ daftarBerita, errorMessage }: Props) {
                   ))}
                 </div>
               ) : (
+                /* ============ LIST VIEW — 6 BERITA SEMUA ============ */
                 <div className="space-y-4">
-                  {otherBerita.map((berita) => (
+                  {filteredBerita.map((berita) => (
                     <Link
                       key={berita.id}
                       href={`/berita/${berita.id}`}
